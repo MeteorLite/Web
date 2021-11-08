@@ -44,14 +44,6 @@ jobs:
       id: login
       with:
          kubeconfig: ${{ secrets.aks_meteorweb_kubeConfig }}
-    
-    - name: Create namespace
-      run: |
-        namespacePresent=`kubectl get namespace | grep meteor-web9a00 | wc -l`
-        if [ $namespacePresent -eq 0 ]
-        then
-            echo `kubectl create namespace meteor-web9a00`
-        fi
 
     - uses: azure/k8s-create-secret@v1
       with:
