@@ -17,3 +17,19 @@ spec:
           image: "meteor.azurecr.io/meteorweb"
           ports:
           - containerPort: 8080
+          env:                  
+          - name: SPRING_DATASOURCE_USERNAME 
+            valueFrom:          
+              secretKeyRef:
+                name: mysql-user-pass
+                key: username
+          - name: SPRING_DATASOURCE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mysql-user-pass
+                key: password
+          - name: SPRING_DATASOURCE_URL
+            valueFrom:
+              secretKeyRef:
+                name: mysql-db-url
+                key: url
