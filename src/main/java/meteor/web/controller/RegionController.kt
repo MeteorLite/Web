@@ -11,17 +11,11 @@ class RegionController(
     private val service: RegionService
 ) {
     @PostMapping
-    fun save(@RequestBody tileFlags: List<TileFlag>): ResponseEntity<Any> {
-        return try {
-            service.saveAll(tileFlags)
-            ResponseEntity.ok().build()
-        } catch (e: Exception) {
-            ResponseEntity.noContent().build()
-        }
-    }
+    fun save(@RequestBody tileFlags: List<TileFlag>) = service.saveAll(tileFlags)
 
     @GetMapping
-    fun getAll(): List<TileFlag> {
-        return service.findAll()
-    }
+    fun getAll(): List<TileFlag> = service.findAll()
+
+    @GetMapping("/{regionId}")
+    fun getByRegionId(@PathVariable regionId: Int) = service.findByRegionId(regionId)
 }

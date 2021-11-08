@@ -15,4 +15,8 @@ class RegionService(
     fun findAll(): List<TileFlag> {
         return regionRepository.findAll()
     }
+
+    fun findByRegionId(regionId: Int): List<TileFlag> {
+        return regionRepository.findByRegion(regionId)
+    }
 }
