@@ -1,19 +1,19 @@
 apiVersion : apps/v1
 kind: Deployment
 metadata:
-  name: "meteorweb-9253"
+  name: "meteor-backend"
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: "meteorweb-9253"
+      app: "meteor"
   template:
     metadata:
       labels:
-        app: "meteorweb-9253"
+        app: "meteor"
     spec:
       containers:
-        - name: "meteorweb-9253"
+        - name: "meteor-backend"
           image: "meteor.azurecr.io/meteorweb"
           ports:
           - containerPort: 8080
