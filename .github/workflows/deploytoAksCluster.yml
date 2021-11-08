@@ -55,7 +55,7 @@ jobs:
 
     - uses: azure/k8s-create-secret@v1
       with:
-        namespace: meteor-web9a00
+        namespace: default
         container-registry-url: meteor.azurecr.io
         container-registry-username: ${{ steps.create-acr.outputs.acr_username }}
         container-registry-password: ${{ steps.create-acr.outputs.acr_password }}
@@ -63,7 +63,7 @@ jobs:
        
     - uses: azure/k8s-deploy@v1.2
       with:
-        namespace: meteor-web9a00
+        namespace: default
         manifests: |
           manifests/deployment.yml
           manifests/service.yml
