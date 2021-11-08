@@ -19,13 +19,11 @@ spec:
           - containerPort: 8080
 
           env:
-          - name: SPRING_TEST
-            value: "hello"
-#          - name: SPRING_DATASOURCE_USERNAME
-#            valueFrom:
-#              secretKeyRef:
-#                name: mysql-user-pass
-#                key: username
+          - name: SPRING_DATASOURCE_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: mysql-user-pass
+                key: username
 #          - name: SPRING_DATASOURCE_PASSWORD
 #            valueFrom:
 #              secretKeyRef:
