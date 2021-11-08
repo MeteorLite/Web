@@ -1,9 +1,9 @@
 package meteor.web.model
 
 import java.io.Serializable
-import javax.persistence.Embeddable
+//import javax.persistence.Embeddable
 
-@Embeddable
+//@Embeddable
 data class TileId(
     var x: Int,
     var y: Int,
