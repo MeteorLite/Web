@@ -11,5 +11,7 @@ class TileFlag(
     @Id val y: Int,
     @Id val z: Int,
     val flag: Int,
-    val region: Int
+    val region: Int,
+    val regionX: Int,
+    val regionY: Int
 )
