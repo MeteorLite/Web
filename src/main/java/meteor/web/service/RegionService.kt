@@ -11,4 +11,8 @@ class RegionService(
     fun saveAll(tileFlags: List<TileFlag>) {
         regionRepository.saveAll(tileFlags)
     }
+
+    fun findAll(): List<TileFlag> {
+        return regionRepository.findAll()
+    }
 }
