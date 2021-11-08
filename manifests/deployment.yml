@@ -16,11 +16,11 @@ spec:
         - name: "meteorweb-9253"
           image: "meteor.azurecr.io/meteorweb"
           ports:
-           containerPort: 8080
+          - containerPort: 8080
 
           env:
-            - name: SPRING_TEST
-              value: "hello"
+          - name: SPRING_TEST
+            value: "hello"
 #          - name: SPRING_DATASOURCE_USERNAME
 #            valueFrom:
 #              secretKeyRef:
