@@ -1,16 +1,15 @@
 package meteor.web.model
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 
 @Document
-data class TileFlag(
-    @Id val regionCoords: String,
-    val x: Int,
-    val y: Int,
-    val z: Int,
-    val flag: Int,
-    val region: Int,
-    val regionX: Int,
-    val regionY: Int
+class TileFlag(
+    @JsonProperty @Id val regionCoords: String,
+    @JsonProperty val x: Int,
+    @JsonProperty val y: Int,
+    @JsonProperty val z: Int,
+    @JsonProperty val flag: Int,
+    @JsonProperty val region: Int,
 )
