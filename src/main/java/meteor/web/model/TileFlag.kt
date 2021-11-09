@@ -1,15 +1,14 @@
 package meteor.web.model
 
-import javax.persistence.Entity
-import javax.persistence.Id
-import javax.persistence.IdClass
+import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.mapping.Document
 
-@Entity
-@IdClass(TileId::class)
+@Document
 class TileFlag(
-    @Id val x: Int,
-    @Id val y: Int,
-    @Id val z: Int,
+    @Id val regionCoords: String,
+    val x: Int,
+    val y: Int,
+    val z: Int,
     val flag: Int,
     val region: Int,
     val regionX: Int,

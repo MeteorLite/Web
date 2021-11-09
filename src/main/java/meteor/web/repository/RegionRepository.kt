@@ -1,9 +1,8 @@
 package meteor.web.repository
 
-import meteor.web.model.TileId
 import meteor.web.model.TileFlag
-import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.mongodb.repository.MongoRepository
 
-interface RegionRepository : JpaRepository<TileFlag, TileId> {
+interface RegionRepository : MongoRepository<TileFlag, Long> {
     fun findByRegion(regionId: Int): List<TileFlag>
 }
