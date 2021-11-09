@@ -4,7 +4,7 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 
 @Document
-class TileFlag(
+data class TileFlag(
     @Id val regionCoords: String,
     val x: Int,
     val y: Int,
