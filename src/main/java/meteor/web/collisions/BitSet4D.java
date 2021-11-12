@@ -61,8 +61,6 @@ public class BitSet4D {
         index = index * sizeY + y;
         index = index * sizeX + x;
         index = index * sizeW + w;
-
-        System.out.println(index);
         return index;
     }
 }
