@@ -14,8 +14,16 @@ import java.io.FileInputStream
 class RegionController(
     private val service: RegionService
 ) {
-    @PostMapping
-    fun save(@RequestBody tileFlags: List<TileFlag>) = service.saveAll(tileFlags)
+    val dbVersion = 1
+
+    @PostMapping("/{version}")
+    fun save(@PathVariable version: Int, @RequestBody tileFlags: List<TileFlag>) {
+        if (version != dbVersion) {
+            return
+        }
+
+        service.saveAll(tileFlags)
+    }
 
     @GetMapping
     fun getAll(): ResponseEntity<Resource> {
