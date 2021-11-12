@@ -12,8 +12,11 @@ class TileFlag(
     val regionX: Int?,
     val regionY: Int?,
 ) {
+    @Transient
     val north = !obstacle && !isWalled(Direction.NORTH)
+    @Transient
     val east = !obstacle && !isWalled(Direction.EAST)
+
     val obstacle: Boolean
         get() {
             if (flag == 0) {
