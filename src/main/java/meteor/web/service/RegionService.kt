@@ -1,10 +1,11 @@
 package meteor.web.service
 
-import meteor.web.collisions.GlobalCollisionMap
+import meteor.web.collisions.CollisionMap
 import meteor.web.model.TileFlag
 import meteor.web.repository.RegionRepository
 import org.springframework.stereotype.Service
 import java.io.File
+
 
 @Service
 class RegionService(
@@ -25,19 +26,29 @@ class RegionService(
     fun findTile(x: Int, y: Int, z: Int) = regionRepository.findFirstByXAndYAndZ(x, y, z)
 
     fun writeToFile(): File {
-        val all = findAll()
-        val map = GlobalCollisionMap()
+        val tileFlags = findAll()
+        val collisionMap = CollisionMap()
 
-        val regions = all.distinctBy { it.region }.map { it.region!! }
-        for (region in regions) {
-            map.createRegion(region)
+        for (tileFlag in tileFlags) {
+            if (collisionMap.regions[tileFlag.region!!] == null) {
+                collisionMap.createRegion(tileFlag.region)
+            }
+
+            if (tileFlag.obstacle) {
+                collisionMap.set(tileFlag.x!!, tileFlag.y!!, tileFlag.z!!, 0, false)
+                collisionMap.set(tileFlag.x, tileFlag.y, tileFlag.z, 1, false)
+                continue
+            }
+
+            if (!tileFlag.north) {
+                collisionMap.set(tileFlag.x!!, tileFlag.y!!, tileFlag.z!!, 0, false)
+            }
+
+            if (!tileFlag.east) {
+                collisionMap.set(tileFlag.x!!, tileFlag.y!!, tileFlag.z!!, 1, false)
+            }
         }
 
-        for (tileFlag in all) {
-            map.set(tileFlag.x!!, tileFlag.y!!, tileFlag.z!!, 0, tileFlag.north)
-            map.set(tileFlag.x, tileFlag.y, tileFlag.z, 1, tileFlag.east)
-        }
-
-        return map.writeToFile()
+        return collisionMap.writeToFile()
     }
 }

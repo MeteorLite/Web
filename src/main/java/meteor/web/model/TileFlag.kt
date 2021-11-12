@@ -14,6 +14,8 @@ class TileFlag(
 ) {
     val north = !obstacle && !isWalled(Direction.NORTH)
     val east = !obstacle && !isWalled(Direction.EAST)
+    val west = !obstacle && !isWalled(Direction.WEST)
+    val south = !obstacle && !isWalled(Direction.SOUTH)
     val obstacle: Boolean
         get() {
             if (flag == 0) {

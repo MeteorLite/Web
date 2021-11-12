@@ -18,30 +18,10 @@ public class BitSet4D {
         bits = new BitSet(sizeX * sizeY * sizeZ * sizeW);
     }
 
-    public BitSet4D(ByteBuffer buffer, int sizeX, int sizeY, int sizeZ, int sizeW) {
-        this.sizeX = sizeX;
-        this.sizeY = sizeY;
-        this.sizeZ = sizeZ;
-        this.sizeW = sizeW;
-
-        int bufferSize = buffer.limit();
-        int regionSize = buffer.position() + (sizeX * sizeY * sizeZ * sizeW + 7) / 8;
-
-        buffer.limit(regionSize);
-        bits = BitSet.valueOf(buffer);
-
-        buffer.position(buffer.limit());
-        buffer.limit(bufferSize);
-    }
-
     public void write(ByteBuffer buffer) {
         var startPos = buffer.position();
         buffer.put(bits.toByteArray());
         buffer.position(startPos + (sizeX * sizeY * sizeZ * sizeW + 7) / 8);
-    }
-
-    public boolean get(int x, int y, int z, int w) {
-        return bits.get(getIndex(x, y, z, w));
     }
 
     public void set(int x, int y, int z, int flag, boolean value) {
