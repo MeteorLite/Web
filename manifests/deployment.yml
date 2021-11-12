@@ -15,6 +15,11 @@ spec:
       containers:
         - name: "meteor-backend"
           image: "meteor.azurecr.io/meteorweb"
+          resources:
+            requests:
+              memory: "1Gi"
+            limits:
+              memory: "2Gi"
           ports:
           - containerPort: 8080
           env:
