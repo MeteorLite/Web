@@ -40,7 +40,9 @@ public class GlobalCollisionMap implements CollisionMap {
              GZIPOutputStream gos = new GZIPOutputStream(bos);
              FileOutputStream fos = new FileOutputStream(fileLoc)) {
             gos.write(bytes);
+            gos.finish();
             fos.write(bos.toByteArray());
+            gos.flush();
             fos.flush();
         } catch (IOException e) {
             e.printStackTrace();
