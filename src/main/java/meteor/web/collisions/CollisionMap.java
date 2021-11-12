@@ -39,10 +39,10 @@ public class CollisionMap {
     }
 
     public byte[] toBytes() {
-        var regionCount = (int) Arrays.stream(regions).filter(Objects::nonNull).count();
-        var buffer = ByteBuffer.allocate(regionCount * (2 + 64 * 64 * 4 * 2 / 8));
+        int regionCount = (int) Arrays.stream(regions).filter(Objects::nonNull).count();
+        ByteBuffer buffer = ByteBuffer.allocate(regionCount * (2 + 64 * 64 * 4 * 2 / 8));
 
-        for (var i = 0; i < regions.length; i++) {
+        for (int i = 0; i < regions.length; i++) {
             if (regions[i] != null) {
                 buffer.putShort((short) i);
                 regions[i].write(buffer);
@@ -53,7 +53,7 @@ public class CollisionMap {
     }
 
     public void set(int x, int y, int z, int w, boolean value) {
-        var region = regions[x / 64 * 256 + y / 64];
+        BitSet4D region = regions[x / 64 * 256 + y / 64];
 
         if (region == null) {
             return;

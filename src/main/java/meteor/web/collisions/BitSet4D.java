@@ -19,7 +19,7 @@ public class BitSet4D {
     }
 
     public void write(ByteBuffer buffer) {
-        var startPos = buffer.position();
+        int startPos = buffer.position();
         buffer.put(bits.toByteArray());
         buffer.position(startPos + (sizeX * sizeY * sizeZ * sizeW + 7) / 8);
     }
@@ -37,7 +37,7 @@ public class BitSet4D {
             throw new IndexOutOfBoundsException("(" + x + ", " + y + ", " + z + ", " + w + ")");
         }
 
-        var index = z;
+        int index = z;
         index = index * sizeY + y;
         index = index * sizeX + x;
         index = index * sizeW + w;
