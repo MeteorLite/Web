@@ -32,8 +32,8 @@ class RegionService(
         }
 
         for (tileFlag in all) {
-            val north = (tileFlag.flag!! and 0x2) != 0
-            val east = (tileFlag.flag and 0x8) != 0
+            val north = (tileFlag.flag!! and 0x2) == 0
+            val east = (tileFlag.flag and 0x8) == 0
 
             map.set(tileFlag.x!!, tileFlag.y!!, tileFlag.z!!, 0, north)
             map.set(tileFlag.x, tileFlag.y, tileFlag.z, 1, east)
