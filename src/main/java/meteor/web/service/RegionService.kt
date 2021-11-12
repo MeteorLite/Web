@@ -34,7 +34,7 @@ class RegionService(
                 collisionMap.createRegion(tileFlag.region)
             }
 
-            if (tileFlag.obstacle) {
+            if (tileFlag.isObstacle()) {
                 collisionMap.set(tileFlag.x!!, tileFlag.y!!, tileFlag.z!!, 0, false)
                 collisionMap.set(tileFlag.x, tileFlag.y, tileFlag.z, 1, false)
                 continue
