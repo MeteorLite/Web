@@ -14,8 +14,6 @@ class TileFlag(
 ) {
     val north = !obstacle && !isWalled(Direction.NORTH)
     val east = !obstacle && !isWalled(Direction.EAST)
-    val west = !obstacle && !isWalled(Direction.WEST)
-    val south = !obstacle && !isWalled(Direction.SOUTH)
     val obstacle: Boolean
         get() {
             if (flag == 0) {
@@ -34,7 +32,7 @@ class TileFlag(
         }
     }
     fun check(checkFlag: Int): Boolean {
-        return flag!! and checkFlag != 0
+        return flag != 0xFFFFFF && (flag!! and checkFlag != 0)
     }
 
     fun isWalled(direction: Direction): Boolean {
