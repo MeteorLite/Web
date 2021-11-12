@@ -12,19 +12,8 @@ class TileFlag(
     val regionX: Int?,
     val regionY: Int?,
 ) {
-    @Transient
-    val north = !obstacle && !isWalled(Direction.NORTH)
-    @Transient
-    val east = !obstacle && !isWalled(Direction.EAST)
-
-    val obstacle: Boolean
-        get() {
-            if (flag == 0) {
-                return false
-            }
-
-            return check(0x100 or 0x20000 or 0x200000 or 0x1000000)
-        }
+    var north = !isObstacle() && !isWalled(Direction.NORTH)
+    var east = !isObstacle() && !isWalled(Direction.EAST)
 
     companion object {
         enum class Direction(val flag: Int) {
@@ -34,6 +23,15 @@ class TileFlag(
             EAST(0x8)
         }
     }
+
+    fun isObstacle(): Boolean {
+        if (flag == 0) {
+            return false
+        }
+
+        return check(0x100 or 0x20000 or 0x200000 or 0x1000000)
+    }
+
     fun check(checkFlag: Int): Boolean {
         return flag != 0xFFFFFF && (flag!! and checkFlag != 0)
     }
