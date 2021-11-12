@@ -28,6 +28,9 @@ class RegionController(
             .body(resource)
     }
 
+    @GetMapping("/{x}/{y}/{z}")
+    fun getTile(@PathVariable x: Int, @PathVariable y: Int, @PathVariable z: Int) = service.findTile(x, y, z)
+
     @GetMapping("/{regionId}")
     fun getByRegionId(@PathVariable regionId: Int) = service.findByRegionId(regionId)
 }

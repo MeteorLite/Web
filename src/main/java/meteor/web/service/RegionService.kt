@@ -5,6 +5,7 @@ import meteor.web.model.TileFlag
 import meteor.web.repository.RegionRepository
 import org.springframework.stereotype.Service
 import java.io.File
+import java.util.*
 
 @Service
 class RegionService(
@@ -21,6 +22,8 @@ class RegionService(
     fun findByRegionId(regionId: Int): List<TileFlag> {
         return regionRepository.findByRegion(regionId)
     }
+
+    fun findTile(x: Int, y: Int, z: Int) = regionRepository.findFirstByXAndYAndZ(x, y, z)
 
     fun writeToFile(): File {
         val all = findAll()
