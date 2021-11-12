@@ -41,7 +41,7 @@ public class GlobalCollisionMap implements CollisionMap {
              FileOutputStream fos = new FileOutputStream(fileLoc)) {
             gos.write(bytes);
             fos.write(bos.toByteArray());
-
+            fos.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
