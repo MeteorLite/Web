@@ -66,6 +66,8 @@ class RegionController(
         collisionMap.writeToFile().also { newFile ->
             Files.write(newFile.toPath(), newFile.readBytes())
         }
+
+        regionRepository.saveAll(tiles)
     }
 
     @GetMapping(produces = [MediaType.APPLICATION_OCTET_STREAM_VALUE])
