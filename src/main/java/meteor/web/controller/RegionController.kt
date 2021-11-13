@@ -3,6 +3,7 @@ package meteor.web.controller
 import meteor.web.collisions.CollisionMap
 import meteor.web.config.RegionConfig
 import meteor.web.model.TileFlag
+import meteor.web.repository.RegionRepository
 import org.springframework.core.io.FileSystemResource
 import org.springframework.core.io.InputStreamResource
 import org.springframework.core.io.Resource
@@ -20,9 +21,17 @@ import java.util.zip.GZIPInputStream
 @RestController
 @RequestMapping("regions")
 class RegionController(
-    private val collisionMap: CollisionMap
+    private val collisionMap: CollisionMap,
+    private val regionRepository: RegionRepository,
 ) {
     val dbVersion = 1
+
+    @GetMapping("/{x}/{y}/{z}")
+    fun getTile(@PathVariable x: Int, @PathVariable y: Int, @PathVariable z: Int) =
+        regionRepository.findFirstByXAndYAndZ(x, y, z)
+
+    @GetMapping("/{regionId}")
+    fun getByRegionId(@PathVariable regionId: Int) = regionRepository.findByRegion(regionId)
 
     @PostMapping("/{version}")
     fun saveAll(@PathVariable version: Int, @RequestBody tiles: List<TileFlag>) {
