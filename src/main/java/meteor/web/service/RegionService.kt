@@ -26,26 +26,28 @@ class RegionService(
     fun findTile(x: Int, y: Int, z: Int) = regionRepository.findFirstByXAndYAndZ(x, y, z)
 
     fun writeToFile(): File {
-        val tileFlags = findAll()
         val collisionMap = CollisionMap()
+        regionRepository.findBy().forEach { tileFlag ->
+            val region = tileFlag.region ?: return@forEach
+            val x = tileFlag.x ?: return@forEach
+            val y = tileFlag.y ?: return@forEach
+            val z = tileFlag.z ?: return@forEach
 
-        for (tileFlag in tileFlags) {
-            if (collisionMap.regions[tileFlag.region!!] == null) {
-                collisionMap.createRegion(tileFlag.region)
+            if (collisionMap.regions[region] == null) {
+                collisionMap.createRegion(region)
             }
 
             if (tileFlag.isObstacle()) {
-                collisionMap.set(tileFlag.x!!, tileFlag.y!!, tileFlag.z!!, 0, false)
-                collisionMap.set(tileFlag.x, tileFlag.y, tileFlag.z, 1, false)
-                continue
-            }
+                collisionMap.set(x, y, z, 0, false)
+                collisionMap.set(x, y, z, 1, false)
+            } else {
+                if (!tileFlag.north) {
+                    collisionMap.set(x, y, z, 0, false)
+                }
 
-            if (!tileFlag.north) {
-                collisionMap.set(tileFlag.x!!, tileFlag.y!!, tileFlag.z!!, 0, false)
-            }
-
-            if (!tileFlag.east) {
-                collisionMap.set(tileFlag.x!!, tileFlag.y!!, tileFlag.z!!, 1, false)
+                if (!tileFlag.east) {
+                    collisionMap.set(x, y, z, 1, false)
+                }
             }
         }
 
