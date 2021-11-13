@@ -12,6 +12,17 @@ import java.util.zip.GZIPOutputStream;
 public class CollisionMap {
     public final BitSet4D[] regions = new BitSet4D[256 * 256];
 
+    public CollisionMap() {}
+
+    public CollisionMap(byte[] data) {
+        var buffer = ByteBuffer.wrap(data);
+
+        while (buffer.hasRemaining()) {
+            var region = buffer.getShort() & 0xffff;
+            regions[region] = new BitSet4D(buffer, 64, 64, 4, 2);
+        }
+    }
+
     public File writeToFile() {
         byte[] bytes = toBytes();
         File fileLoc = new File("regions");
@@ -39,10 +50,10 @@ public class CollisionMap {
     }
 
     public byte[] toBytes() {
-        int regionCount = (int) Arrays.stream(regions).filter(Objects::nonNull).count();
-        ByteBuffer buffer = ByteBuffer.allocate(regionCount * (2 + 64 * 64 * 4 * 2 / 8));
+        var regionCount = (int) Arrays.stream(regions).filter(Objects::nonNull).count();
+        var buffer = ByteBuffer.allocate(regionCount * (2 + 64 * 64 * 4 * 2 / 8));
 
-        for (int i = 0; i < regions.length; i++) {
+        for (var i = 0; i < regions.length; i++) {
             if (regions[i] != null) {
                 buffer.putShort((short) i);
                 regions[i].write(buffer);
@@ -53,7 +64,7 @@ public class CollisionMap {
     }
 
     public void set(int x, int y, int z, int w, boolean value) {
-        BitSet4D region = regions[x / 64 * 256 + y / 64];
+        var region = regions[x / 64 * 256 + y / 64];
 
         if (region == null) {
             return;
@@ -62,8 +73,26 @@ public class CollisionMap {
         region.set(x % 64, y % 64, z, w, value);
     }
 
+    public BitSet4D getRegion(int x, int y) {
+        int regionId = x / 64 * 256 + y / 64;
+        return regions[regionId];
+    }
+
     public void createRegion(int region) {
         regions[region] = new BitSet4D(64, 64, 4, 2);
         regions[region].setAll(true);
+    }
+
+    public boolean get(int x, int y, int z, int w) {
+        var region = getRegion(x, y);
+
+        if (region == null) {
+            return true;
+        }
+
+        int regionX = x % 64;
+        int regionY = y % 64;
+
+        return region.get(regionX, regionY, z, w);
     }
 }
