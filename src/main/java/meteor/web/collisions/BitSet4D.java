@@ -49,7 +49,13 @@ public class BitSet4D {
     }
 
     public void set(int x, int y, int z, int flag, boolean value) {
-        bits.set(getIndex(x, y, z, flag), value);
+        int index = getIndex(x, y, z, flag);
+        boolean previousValue = get(index);
+        if (previousValue == value) {
+            return;
+        }
+
+        bits.set(index, value);
     }
 
     public void setAll(boolean value) {
