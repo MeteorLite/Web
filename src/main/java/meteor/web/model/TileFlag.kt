@@ -1,6 +1,6 @@
 package meteor.web.model
 
-class TileFlag(
+data class TileFlag(
     val x: Int?,
     val y: Int?,
     val z: Int?,
@@ -9,8 +9,8 @@ class TileFlag(
     val regionX: Int?,
     val regionY: Int?,
 ) {
-    var north = !isObstacle() && !isWalled(Direction.NORTH)
-    var east = !isObstacle() && !isWalled(Direction.EAST)
+    var north = !isWalled(Direction.NORTH)
+    var east = !isWalled(Direction.EAST)
 
     companion object {
         enum class Direction(val flag: Int) {

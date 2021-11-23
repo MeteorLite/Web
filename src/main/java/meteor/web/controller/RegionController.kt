@@ -34,6 +34,9 @@ class RegionController(
                 collisionMap.set(x, y, z, 0, false)
                 collisionMap.set(x, y, z, 1, false)
             } else {
+                collisionMap.set(x, y, z, 0, true)
+                collisionMap.set(x, y, z, 1, true)
+
                 if (!tileFlag.north) {
                     collisionMap.set(x, y, z, 0, false)
                 }
