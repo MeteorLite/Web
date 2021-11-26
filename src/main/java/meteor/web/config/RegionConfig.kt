@@ -13,12 +13,13 @@ import java.util.zip.GZIPInputStream
 class RegionConfig {
     @Bean
     fun collisionMap(): CollisionMap {
+        val input = GZIPInputStream(
+            ByteArrayInputStream(
+                Files.readAllBytes(Path.of("./regions"))
+            )
+        ).readAllBytes()
         return CollisionMap(
-            GZIPInputStream(
-                ByteArrayInputStream(
-                    Files.readAllBytes(Path.of("./regions"))
-                )
-            ).readAllBytes()
+
         )
     }
 }

@@ -5,9 +5,7 @@ data class TileFlag(
     val y: Int?,
     val z: Int?,
     val flag: Int?,
-    val region: Int?,
-    val regionX: Int?,
-    val regionY: Int?,
+    val region: Int?
 ) {
     var north = !isWalled(Direction.NORTH)
     var east = !isWalled(Direction.EAST)
