@@ -21,6 +21,9 @@ class RegionController(
         regionService.save(tiles)
     }
 
+    @GetMapping("/instance/{region}")
+    fun instance(@PathVariable region: Int) = regionService.deleteInstancedRegion(region)
+
     @GetMapping(produces = [MediaType.APPLICATION_OCTET_STREAM_VALUE])
     fun getAll() = regionService.getFile()
 

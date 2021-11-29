@@ -75,4 +75,8 @@ class RegionService(
 
         return out
     }
+
+    fun deleteInstancedRegion(region: Int) {
+        collisionMap.regions[region] = null
+    }
 }
