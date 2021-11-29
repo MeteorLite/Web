@@ -1,4 +1,4 @@
-package meteor.web.model
+package meteor.web.model.dto
 
 data class TileFlag(
     val x: Int?,

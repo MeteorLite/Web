@@ -1,6 +1,6 @@
 package meteor.web.controller
 
-import meteor.web.model.TileFlag
+import meteor.web.model.dto.TileFlag
 import meteor.web.service.RegionService
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*

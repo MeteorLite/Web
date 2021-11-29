@@ -2,8 +2,8 @@ package meteor.web.service
 
 import meteor.web.collisions.CollisionMap
 import meteor.web.collisions.Constants
-import meteor.web.model.MappedTile
-import meteor.web.model.TileFlag
+import meteor.web.model.dto.MappedTile
+import meteor.web.model.dto.TileFlag
 import org.springframework.core.io.FileSystemResource
 import org.springframework.stereotype.Service
 import java.nio.file.Files
