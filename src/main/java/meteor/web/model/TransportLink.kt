@@ -11,12 +11,12 @@ data class TransportLink(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long?,
-    val source: String?,
-    val destination: String?,
-    val action: String?,
-    val objName: String?,
-    val objId: Int?,
-    val enabled: Boolean?
+    val source: String,
+    val destination: String,
+    val action: String,
+    val objName: String,
+    val objId: Int,
+    val enabled: Boolean
 ) {
     constructor(transportLink: TransportLinkDto) : this(
         null,

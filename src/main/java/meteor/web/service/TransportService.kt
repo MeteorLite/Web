@@ -10,15 +10,24 @@ import javax.annotation.PostConstruct
 
 @Service
 class TransportService(
-    val transportLinkRepository: TransportLinkRepository
+    val transportLinkRepository: TransportLinkRepository,
 ) {
     fun saveAll(transports: List<TransportLinkDto>) = transportLinkRepository
-        .saveAll(transports.map { TransportLink(it) })
+        .saveAll(transports
+            .filter {
+                it.source.split(" ").size == 3
+                        && it.destination.split(" ").size == 3
+                        && it.action.isNotBlank()
+                        && it.objName.isNotBlank()
+                        && it.objId > 0
+            }.map {
+                TransportLink(it)
+            })
         .map { TransportLinkDto(it) }
 
     fun getAll() = transportLinkRepository
         .findAll()
-        .filter { it.enabled ?: false }
+        .filter { it.enabled }
         .map { TransportLinkDto(it) }
         .joinToString("\n")
 
