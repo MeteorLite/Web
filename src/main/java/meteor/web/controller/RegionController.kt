@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*
 class RegionController(
     private val regionService: RegionService
 ) {
-    val dbVersion = 2
+    val dbVersion = 3
 
     @PostMapping("/{version}")
     fun saveAll(@PathVariable version: Int, @RequestBody tiles: List<TileFlag>) {
@@ -35,4 +35,7 @@ class RegionController(
 
     @GetMapping("/{region}")
     fun getRegion(@PathVariable region: Int) = regionService.getMappedTiles(region)
+
+    @GetMapping("/all/{z}")
+    fun getRegions(@PathVariable z: Int) = regionService.getAllMappedTiles(z)
 }

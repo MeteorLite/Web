@@ -49,6 +49,21 @@ class RegionService(
 
     fun getUnmapped() = collisionMap.regions.withIndex().filter { it.value == null }.map { it.index }
 
+    fun getAllMappedTiles(z: Int): List<MappedTile> {
+        val out = mutableListOf<MappedTile>()
+
+        var startRegion = 4647
+        repeat(25) {
+            var curRegion = startRegion++
+            repeat(43) {
+                out.addAll(getMappedTiles(curRegion, z))
+                curRegion += 256
+            }
+        }
+
+        return out
+    }
+
     fun getMappedTiles(region: Int, z: Int): List<MappedTile> {
         val regionBits = collisionMap.regions[region] ?: return emptyList()
         val out = mutableListOf<MappedTile>()
