@@ -33,6 +33,7 @@ class SecurityConfig(
             .csrf().disable()
             .authorizeRequests()
             .antMatchers(HttpMethod.POST, "/regions").authenticated()
+            .antMatchers(HttpMethod.POST, "/transports").authenticated()
             .antMatchers("/regions/instance/**").authenticated()
             .antMatchers(HttpMethod.GET, "/**").permitAll()
             .and()
