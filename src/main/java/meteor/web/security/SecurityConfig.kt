@@ -1,6 +1,6 @@
 package meteor.web.security
 
-import org.springframework.beans.factory.annotation.Value
+import meteor.web.repository.ApiKeyRepository
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
 import org.springframework.security.authentication.BadCredentialsException
@@ -12,14 +12,12 @@ import org.springframework.security.config.http.SessionCreationPolicy
 @Configuration
 @EnableWebSecurity
 class SecurityConfig(
-    @Value("\${regions.api-key}") private val validApiKey: String,
-    @Value("\${regions.api-key-header}") private val apiKeyHeader: String,
+    private val apiKeyRepository: ApiKeyRepository
 ) : WebSecurityConfigurerAdapter() {
     override fun configure(http: HttpSecurity) {
-        val filter = ApiKeyFilter(apiKeyHeader)
+        val filter = ApiKeyFilter(apiKeyRepository)
         filter.setAuthenticationManager {
-            val principal = it.principal as String
-            if (principal != validApiKey) {
+            if (it.principal == null) {
                 throw BadCredentialsException("Invalid api key")
             }
 
